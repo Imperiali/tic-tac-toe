@@ -24,6 +24,12 @@ def has_finished():
     return all([value != " " for value in THE_BOARD.values()])
 
 
+def reset_board():
+    global THE_BOARD
+    for idx in THE_BOARD.keys():
+        THE_BOARD[idx] = ' '
+
+
 def check_sequency(positions):
     i, j, h = positions
     if THE_BOARD[i] == THE_BOARD[j] == THE_BOARD[h] != " ":
@@ -64,13 +70,18 @@ def game():
 
         if has_winner():
             print_end_game(turn)
-            return
+            break
 
         # Alterna as rodadas
         if turn == "X":
             turn = "O"
         else:
             turn = "X"
+
+    print_board()
+    restart = input("Deseja jogar novamente?(y/n) ")
+    if restart == 'y':
+        reset_board()
 
 
 if __name__ == "__main__":
